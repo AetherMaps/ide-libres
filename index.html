@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>IDE</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body,
+        html {
+            background-color: #ffffff !important;
+        }
+
+        .navbar.is-success {
+            background-color: #ffffff !important;
+            box-shadow: 0 1px 0 0 #e5e5e5;
+        }
+
+        .navbar.is-success .navbar-item,
+        .navbar.is-success .navbar-link {
+            color: #2c5e2e !important;
+            background-color: transparent !important;
+        }
+
+        .navbar.is-success .navbar-item:hover,
+        .navbar.is-success .navbar-link:hover {
+            background-color: #f0f0f0 !important;
+            color: #1f4f21 !important;
+        }
+
+        .navbar.is-success .navbar-dropdown {
+            background-color: #ffffff !important;
+            border: 1px solid #e5e5e5;
+            border-top: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar.is-success .navbar-dropdown .navbar-item {
+            background-color: #ffffff !important;
+            color: #2c5e2e !important;
+        }
+
+        .navbar.is-success .navbar-dropdown .navbar-item:hover {
+            background-color: #f5f5f5 !important;
+            color: #1f4f21 !important;
+        }
+
+        .navbar.is-success .navbar-link::after {
+            border-color: #2c5e2e !important;
+        }
+
+        .hero.is-success {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #eef2f0;
+        }
+
+        .hero.is-success .title,
+        .hero.is-success .subtitle {
+            color: #1e3a2f !important;
+        }
+
+        .hero.is-success .title {
+            font-weight: 600;
+        }
+
+        .hero .container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero.is-success .hero-body {
+            padding: 2rem 1rem;
+        }
+
+        /* Notification */
+        .notification.is-light {
+            background-color: #f8faf6;
+            color: #2c5e2e;
+        }
+
+        /* Cards - 3 columnas en desktop */
+        #cards-container .column {
+            display: flex;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-image {
+            background-color: #fafbf9;
+            padding: 1rem;
+        }
+
+        .card-image figure.image {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .card-image figure.image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card-image figure.image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Ajuste para móviles */
+        @media screen and (max-width: 768px) {
+            .card-image {
+                padding: 0.85rem;
+            }
+
+            .card-image figure.image {
+                border-radius: 14px;
+            }
+        }
+
+        .card-content {
+            padding: 1rem 1rem 1.25rem;
+            flex-grow: 1;
+        }
+
+        .card .title.is-4 {
+            color: #2c3e50;
+        }
+
+        .card .subtitle.is-6 {
+            color: #7f8c8d;
+        }
+
+        .card .content p {
+            color: #34495e;
+        }
+
+        .card .content strong {
+            color: #2c5e2e;
+        }
+
+        .media-content .title.is-4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .tags .tag {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Botón de descarga */
+        .button.is-success {
+            background-color: #dff0df;
+            border-color: transparent;
+            opacity: 0.8;
+            color: #677e70;
+        }
+
+        .button.is-success:hover {
+            background-color: #abd3ae;
+        }
+
+        /* Botón de metadatos*/
+        .button.is-info {
+            background-color: #edfafc;
+            border-color: transparent;
+            color: #aabed1;
+        }
+
+        .button.is-info:hover {
+            background-color: #9ec2c5;
+            color: #ffffff;
+        }
+
+        /* Grid 3x3 en desktop */
+        @media screen and (min-width: 1024px) {
+            #cards-container .column {
+                flex: 0 0 33.3333%;
+                max-width: 33.3333%;
+            }
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 1023px) {
+            #cards-container .column {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .section,
+        .hero-body {
+            background-color: #ffffff;
+        }
+
+        .navbar-brand .navbar-item strong {
+            color: #226622;
+        }
+
+        /* Contenedor del buscador */
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Campo de búsqueda */
+        #searchInput {
+            border-radius: 10px;
+            border: 1px solid #e5e9ec;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            height: 46px;
+            box-shadow: none;
+            color: #2c502e;
+            font-weight: 450;
+        }
+
+        #searchInput:focus {
+            border-color: #b3ccb1;
+            box-shadow: 0 0 0 3px rgba(179, 204, 177, 0.15);
+            outline: none;
+        }
+
+        #searchInput::placeholder {
+            color: #c0c6cc;
+            font-weight: 400;
+        }
+
+        #searchInput+.icon i {
+            color: #cbd5e1;
+            transition: color 0.2s;
+        }
+
+        #searchInput:focus+.icon i {
+            color: #b3ccb1;
+        }
+
+        /* Botón limpiar */
+        #clearSearchBtn {
+            background-color: #f8f9fa;
+            border: 1px solid #e5e9ec;
+            border-radius: 10px;
+            color: #c2ddc2;
+            font-weight: 500;
+            height: 46px;
+            transition: all 0.2s ease;
+        }
+
+        #clearSearchBtn:hover {
+            background-color: #eef2f0;
+            border-color: #d0d7dd;
+            color: #2c5e2e;
+        }
+
+        #clearSearchBtn:active {
+            transform: scale(0.97);
+        }
+
+        /* Panel de sugerencias */
+        .search-suggestions {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #eef2f0;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.02);
+            z-index: 1000;
+            max-height: 320px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-suggestions.show {
+            display: block;
+            animation: fadeInUp 0.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll personalizado */
+        .search-suggestions::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .search-suggestions::-webkit-scrollbar-track {
+            background: #f5f7f5;
+            border-radius: 10px;
+        }
+
+        .search-suggestions::-webkit-scrollbar-thumb {
+            background: #d4dcd0;
+            border-radius: 10px;
+        }
+
+        .search-suggestions::-webkit-scrollbar-thumb:hover {
+            background: #b3ccb1;
+        }
+
+        /* Encabezado de sección en sugerencias */
+        .suggestion-header {
+            padding: 0.6rem 1rem;
+            background: #fafcfa;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8aa889;
+            border-bottom: 1px solid #f0f4ef;
+        }
+
+        /* Cada ítem de sugerencia */
+        .suggestion-item {
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f8f4;
+            transition: background 0.15s ease;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background-color: #fafdf9;
+        }
+
+        /* Título de la sugerencia */
+        .suggestion-item .suggestion-title {
+            font-weight: 500;
+            color: #2d3e4a;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .suggestion-item .suggestion-title i {
+            color: #b3ccb1;
+            font-size: 0.8rem;
+            width: 20px;
+        }
+
+        /* Palabras clave de la sugerencia */
+        .suggestion-item .suggestion-keywords {
+            font-size: 0.7rem;
+            color: #9aab9a;
+            margin-top: 0.3rem;
+            padding-left: 2rem;
+        }
+
+        /* Etiquetas de palabras clave en sugerencias */
+        .suggestion-tag {
+            display: inline-block;
+            background: #eff3ec;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-right: 0.35rem;
+            margin-top: 0.2rem;
+            color: #557a4a;
+            transition: background 0.15s;
+        }
+
+        .suggestion-item:hover .suggestion-tag {
+            background: #e4ece0;
+        }
+
+        /* Estado de búsqueda activa */
+        #searchStatus {
+            background: #fafdf9;
+            padding: 0.65rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border: 1px solid #eef2ec;
+            font-size: 0.85rem;
+            color: #6c8670;
+        }
+
+        #searchStatus i:first-child {
+            color: #b3ccb1;
+        }
+
+        #searchTermDisplay {
+            color: #2c5e2e;
+            font-weight: 600;
+            background: #eef4ec;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Botón limpiar estado */
+        #clearSearchStatus {
+            background: transparent;
+            border: none;
+            color: #b0c4b5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 20px;
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+
+        #clearSearchStatus:hover {
+            color: #2c5e2e;
+            background: #eef4ec;
+        }
+
+        /* Resaltado de búsqueda en tarjetas */
+        .search-highlight {
+            background-color: #e9f3e6;
+            padding: 0 2px;
+            border-radius: 5px;
+            font-weight: 500;
+            color: #2a6b2a;
+        }
+
+        /* Ajuste responsive */
+        @media screen and (max-width: 768px) {
+            .field.has-addons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .field.has-addons .control:first-child {
+                width: 100%;
+            }
+
+            .field.has-addons .control:last-child {
+                width: auto;
+            }
+
+            #clearSearchBtn {
+                width: 100%;
+            }
+
+            .search-suggestions {
+                max-height: 260px;
+            }
+
+            .suggestion-item {
+                padding: 0.7rem 0.9rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar is-success" role="navigation">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="index.html">
+                    Inicio
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Información Geográfica
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#" data-filtro="rezago">
+                            Rezago
+                        </a>
+                        <a class="navbar-item" href="#" data-filtro="denue">
+                            Unidades Económicas (DENUE)
+                        </a>
+                        <a class="navbar-item" href="#" data-filtro="calles">
+                            Calles
+                        </a>
+                        <a class="navbar-item" href="#" data-filtro="libres">
+                            Libres
+                        </a>
+                        <a class="navbar-item" href="#" data-filtro="vulnerabilidad">
+                            Vulnerabilidad
+                        </a>
+                        <a class="navbar-item" href="#" data-filtro="dem">
+                            Continuo de Elevaciones Mexicano (CEM)
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero is-success is-medium">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Municipio de Libres, Puebla
+                </h1>
+                <p class="subtitle">
+                    Infraestructura de Datos Espaciales.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENIDO -->
+    <section class="section">
+        <div class="container">
+            <div class="notification is-light">
+                Consulta, visualización y descarga de
+                información geográfica publicada mediante
+                servicios OGC (WMS) desde GeoServer.
+            </div>
+
+            <!-- BUSCADOR Y FILTROS -->
+
+            <!-- BUSCADOR POR PALABRAS CLAVE -->
+            <div class="field has-addons" style="margin-bottom: 1rem;">
+                <div class="control has-icons-left is-expanded search-container">
+                    <input class="input" type="text" id="searchInput"
+                        placeholder="Buscar por palabra clave (ej: movilidad, topografía, economía, rezago, vulnerabilidad...)">
+                    <!-- Sugerencias de palabras clave -->
+                    <div id="searchSuggestions" class="search-suggestions"></div>
+                </div>
+                <div class="control">
+                    <button class="button is-light" id="clearSearchBtn">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Indicador de búsqueda activa -->
+            <div id="searchStatus" class="is-size-7 has-text-grey mb-2" style="display: none;">
+                <i class="fas fa-search"></i> Mostrando resultados para: <strong id="searchTermDisplay"></strong>
+            </div>
+
+            <!-- Filtros por tipo de dato y temas rápidos -->
+            <div class="buttons filter-bar" id="filterBar">
+                <button class="button is-small is-light filter-btn" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Todas
+                </button>
+                <button class="button is-small is-light filter-btn" data-filter="Línea">
+                    Línea
+                </button>
+                <button class="button is-small is-light filter-btn" data-filter="Raster">
+                    Raster
+                </button>
+                <button class="button is-small is-light filter-btn" data-filter="Puntual">
+                    Puntual
+                </button>
+                <button class="button is-small is-light filter-btn" data-filter="Poligonal">
+                    Poligonal
+                </button>
+                <button class="button is-small is-danger is-light clear-filter" id="clearFiltersBtn">
+                    Limpiar filtros
+                </button>
+            </div>
+
+            <!-- TARJETAS -->
+            <div id="cards-container" class="columns is-multiline">
+                <!-- Las tarjetas se cargarán dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mapeo de títulos a URLs de descarga (según lo proporcionado)
+        const downloadUrls = {
+            "Indicadores de Rezago Social": "http://localhost:8080/geoserver/libres/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=libres:rezago&outputFormat=SHAPE-ZIP",
+            "DENUE": "http://localhost:8080/geoserver/libres/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=libres:denue&outputFormat=shape-zip",
+            "Red Vial Urbana": "http://localhost:8080/geoserver/libres/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=libres:calles&outputFormat=SHAPE-ZIP",
+            "Libres, Puebla": "http://localhost:8080/geoserver/libres/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=libres:libres&outputFormat=SHAPE-ZIP",
+            "Vulnerabilidad Acuífera": "http://localhost:8080/geoserver/libres/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=libres:vulnerabilidad&outputFormat=SHAPE-ZIP",
+            "Continuo de Elevaciones Mexicano (CEM)": "http://localhost:8080/geoserver/libres/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=libres:dem&format=image/geotiff"
+        };
+
+        // Función para generar metadatos en formato JSON (descargable)
+        function generateMetadataJSON(element) {
+            const metadata = {
+                titulo: element.titulo,
+                autor: element.autor,
+                descripcion: element.descripcion,
+                fecha_publicacion: element.fecha_publicacion,
+                tipo_dato: element.tipo_dato,
+                keywords: element.keywords,
+                url_descarga: downloadUrls[element.titulo] || "No disponible",
+                fecha_generacion: new Date().toISOString()
+            };
+            return JSON.stringify(metadata, null, 2);
+        }
+
+        // Función para descargar archivo
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Función para descargar metadatos
+        function downloadMetadata(element) {
+            const metadataJSON = generateMetadataJSON(element);
+            const sanitizedTitle = element.titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            downloadFile(metadataJSON, `metadata_${sanitizedTitle}.json`, 'application/json');
+        }
+
+        // Función para descargar la capa
+        function downloadLayer(element) {
+            const url = downloadUrls[element.titulo];
+            if (url) {
+                // Crear un enlace temporal para descargar desde la URL
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = ''; // El nombre lo sugiere el servidor
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                // Mostrar notificación de error
+                showNotification(`No hay URL de descarga disponible para ${element.titulo}`, 'is-warning');
+            }
+        }
+
+        // Función para mostrar notificaciones temporales
+        function showNotification(message, type = 'is-success') {
+            const notificationDiv = document.createElement('div');
+            notificationDiv.className = `notification ${type} is-light has-text-centered`;
+            notificationDiv.style.position = 'fixed';
+            notificationDiv.style.bottom = '20px';
+            notificationDiv.style.right = '20px';
+            notificationDiv.style.zIndex = '9999';
+            notificationDiv.style.maxWidth = '300px';
+            notificationDiv.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            notificationDiv.innerHTML = `
+                <button class="delete"></button>
+                <i class="fas ${type === 'is-success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+                ${message}
+            `;
+            document.body.appendChild(notificationDiv);
+
+            // Botón para cerrar
+            notificationDiv.querySelector('.delete').addEventListener('click', () => {
+                notificationDiv.remove();
+            });
+
+            // Auto-cerrar después de 4 segundos
+            setTimeout(() => {
+                if (notificationDiv && notificationDiv.remove) {
+                    notificationDiv.remove();
+                }
+            }, 4000);
+        }
+
+        // Variables para filtros
+        let currentSearchTerm = '';
+        let currentTypeFilter = 'all';
+        let allCardsData = [];
+
+        // Función para filtrar tarjetas
+        function filterCards() {
+            const container = document.getElementById('cards-container');
+            if (!container) return;
+
+            const filteredData = allCardsData.filter(element => {
+                // Filtro por búsqueda
+                let matchesSearch = true;
+                if (currentSearchTerm) {
+                    const searchLower = currentSearchTerm.toLowerCase();
+                    matchesSearch = element.titulo.toLowerCase().includes(searchLower) ||
+                        element.descripcion.toLowerCase().includes(searchLower) ||
+                        element.autor.toLowerCase().includes(searchLower) ||
+                        element.keywords.some(kw => kw.toLowerCase().includes(searchLower));
+                }
+
+                // Filtro por tipo
+                let matchesType = true;
+                if (currentTypeFilter !== 'all') {
+                    matchesType = element.tipo_dato === currentTypeFilter;
+                }
+
+                return matchesSearch && matchesType;
+            });
+
+            // Renderizar tarjetas filtradas
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="column is-12">
+                        <div class="no-results">
+                            <h3 class="title is-5 mt-3">No se encontraron resultados</h3>
+                            <p class="has-text-grey">Intenta con otros términos de búsqueda o limpia los filtros</p>
+                            <button class="button is-success is-light mt-3" id="resetAllFiltersBtn">
+                                Limpiar  todos los filtros
+                            </button>
+                        </div>
+                    </div>
+                `;
+                const resetBtn = document.getElementById('resetAllFiltersBtn');
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        currentSearchTerm = '';
+                        currentTypeFilter = 'all';
+                        document.getElementById('searchInput').value = '';
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('is-success', 'active-filter');
+                            btn.classList.add('is-light');
+                        });
+                        const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                        if (allBtn) {
+                            allBtn.classList.remove('is-light');
+                            allBtn.classList.add('is-success', 'active-filter');
+                        }
+                        filterCards();
+                    });
+                }
+                return;
+            }
+
+            // Renderizar las tarjetas filtradas
+            container.innerHTML = '';
+            filteredData.forEach(element => {
+                const keywordsHTML = element.keywords
+                    .map(keyword =>
+                        `<span class="tag is-success is-light">
+                            ${keyword}
+                        </span>`
+                    )
+                    .join(" ");
+
+                // Determinar si mostrar botones de descarga (según si existe URL)
+                const hasDownloadUrl = !!downloadUrls[element.titulo];
+                const downloadButton = hasDownloadUrl ? `
+                    <button class="button is-success is-outlined download-layer-btn" data-title="${element.titulo.replace(/"/g, '&quot;')}">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                ` : `
+                    <button class="button is-success is-outlined" disabled style="opacity:0.5;">
+                        <i class="fas fa-download"></i> No disponible
+                    </button>
+                `;
+
+                const card = `
+                    <div class="column is-6" data-title="${element.titulo}">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img
+                                        src="${element.thumbnail}"
+                                        alt="${element.titulo}"
+                                        onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+no+disponible'">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        <p class="title is-4">
+                                            ${element.titulo}
+                                        </p>
+                                        <p class="subtitle is-6">
+                                            ${element.autor}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <p>
+                                        ${element.descripcion}
+                                    </p>
+                                    <p>
+                                        <strong> Tipo de dato:</strong>
+                                        ${element.tipo_dato}
+                                    </p>
+                                    <p>
+                                        <strong> Fecha:</strong>
+                                        ${element.fecha_publicacion}
+                                    </p>
+                                    <div class="tags mb-4">
+                                        ${keywordsHTML}
+                                    </div>
+                                    <div class="button-group">
+                                        ${downloadButton}
+                                        <button class="button is-info is-light metadata-btn" data-title="${element.titulo.replace(/"/g, '&quot;')}">
+                                            <i class="fas fa-file-alt"></i> Metadatos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+
+            // Agregar event listeners a los botones de descarga y metadatos después de renderizar
+            document.querySelectorAll('.download-layer-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const title = btn.getAttribute('data-title');
+                    const element = allCardsData.find(el => el.titulo === title);
+                    if (element) {
+                        downloadLayer(element);
+                        showNotification(`Descargando: ${element.titulo}`, 'is-success');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.metadata-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const title = btn.getAttribute('data-title');
+                    const element = allCardsData.find(el => el.titulo === title);
+                    if (element) {
+                        downloadMetadata(element);
+                        showNotification(`Metadatos de "${element.titulo}" guardados`, 'is-info');
+                    }
+                });
+            });
+        }
+
+        // Función para cargar datos desde JSON
+        async function getData() {
+            const url = "contenido.json";
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                const metadatosArray = await response.json();
+                allCardsData = metadatosArray;
+
+                // Inicializar filtros y renderizar
+                filterCards();
+
+                // Configurar eventos de búsqueda y filtros después de cargar datos
+                setupEventListeners();
+
+            } catch (error) {
+                console.log(error.message);
+                document.getElementById("cards-container").innerHTML = `
+                    <div class="column is-12">
+                        <div class="notification is-danger">
+                            <i class="fas fa-exclamation-triangle"></i> Error al cargar contenido.json
+                            <br><small>${error.message}</small>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function setupEventListeners() {
+            // Búsqueda en tiempo real
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    currentSearchTerm = e.target.value;
+                    filterCards();
+                });
+            }
+
+            // Botón limpiar búsqueda
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', () => {
+                    currentSearchTerm = '';
+                    if (searchInput) searchInput.value = '';
+                    filterCards();
+                });
+            }
+
+            // Filtros por tipo
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filterValue = btn.getAttribute('data-filter');
+                    currentTypeFilter = filterValue;
+
+                    // Actualizar estilo de botones
+                    filterBtns.forEach(b => {
+                        b.classList.remove('is-success', 'active-filter');
+                        b.classList.add('is-light');
+                    });
+                    btn.classList.remove('is-light');
+                    btn.classList.add('is-success', 'active-filter');
+
+                    filterCards();
+                });
+            });
+
+            // Botón limpiar todos los filtros
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+            if (clearFiltersBtn) {
+                clearFiltersBtn.addEventListener('click', () => {
+                    currentSearchTerm = '';
+                    currentTypeFilter = 'all';
+                    if (searchInput) searchInput.value = '';
+                    filterBtns.forEach(btn => {
+                        btn.classList.remove('is-success', 'active-filter');
+                        btn.classList.add('is-light');
+                    });
+                    const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                    if (allBtn) {
+                        allBtn.classList.remove('is-light');
+                        allBtn.classList.add('is-success', 'active-filter');
+                    }
+                    filterCards();
+                });
+            }
+
+            // Navegación desde el dropdown del navbar
+            const dropdownItems = document.querySelectorAll('.navbar-dropdown .navbar-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const filtroTexto = item.getAttribute('data-filtro');
+                    if (filtroTexto) {
+                        currentSearchTerm = filtroTexto;
+                        if (searchInput) searchInput.value = filtroTexto;
+                        currentTypeFilter = 'all';
+                        // Resetear filtros de tipo
+                        filterBtns.forEach(btn => {
+                            btn.classList.remove('is-success', 'active-filter');
+                            btn.classList.add('is-light');
+                        });
+                        const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                        if (allBtn) {
+                            allBtn.classList.remove('is-light');
+                            allBtn.classList.add('is-success', 'active-filter');
+                        }
+                        filterCards();
+                        // Scroll suave hacia las tarjetas
+                        document.getElementById('cards-container').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Inicializar la aplicación
+        getData();
+
+        // Agregar estilos adicionales para los botones activos
+        const style = document.createElement('style');
+        style.textContent = `
+            .filter-btn.is-success {
+                background-color: #B3CCB1;
+                color: white;
+            }
+            .button-group .button i {
+                margin-right: 5px;
+            }
+            .card .tag {
+                margin-bottom: 0.25rem;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+
+</html>

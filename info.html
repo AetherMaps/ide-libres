@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Capas Geoespaciales</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+</head>
+
+<body>
+
+    <section class="hero is-success">
+
+        <div class="hero-body">
+
+            <p class="title">
+                Capas Geoespaciales Publicadas
+            </p>
+
+            <p class="subtitle">
+                Información disponible en GeoServer
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="notification is-light">
+
+                Esta página presenta las capas geográficas
+                publicadas mediante servicios WMS para su
+                consulta y visualización.
+
+            </div>
+
+            <div id="capas"></div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        const capas = [
+            {
+                nombre: "Rezago Social",
+                tipo: "Punto",
+                descripcion: "Indicadores espaciales de rezago social."
+            },
+
+            {
+                nombre: "DENUE",
+                tipo: "Punto",
+                descripcion: "Unidades económicas georreferenciadas."
+            },
+
+            {
+                nombre: "Calles",
+                tipo: "Línea",
+                descripcion: "Red vial utilizada para análisis de movilidad y conectividad."
+            },
+
+            {
+                nombre: "Libres",
+                tipo: "Polígono",
+                descripcion: "Delimitación del municipio de Libres, Puebla."
+            },
+
+            {
+                nombre: "Vulnerabilidad Acuífera",
+                tipo: "Polígono",
+                descripcion: "Zonas clasificadas según niveles de vulnerabilidad acuífera."
+            },
+
+            {
+                nombre: "CEM",
+                tipo: "Raster",
+                descripcion: "Continuo de Elevaciones Mexicano (CEM) con resolución de 15 metros."
+            }
+
+        ];
+
+        let html = "";
+
+        for (let i = 0; i < capas.length; i++) {
+
+            html += `
+
+    <div class="box">
+
+        <h3 class="title is-4">
+
+            ${capas[i].nombre}
+
+        </h3>
+
+        <p>
+
+            <strong>Tipo:</strong>
+            ${capas[i].tipo}
+
+        </p>
+
+        <p>
+
+            ${capas[i].descripcion}
+
+        </p>
+
+    </div>
+
+    `;
+
+        }
+
+        document.getElementById("capas").innerHTML = html;
+
+    </script>
+
+</body>
+
+</html>

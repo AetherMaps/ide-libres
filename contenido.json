@@ -1,0 +1,92 @@
+[
+  {
+    "thumbnail": "imagenes/rezago.png",
+    "titulo": "Indicadores de Rezago Social",
+    "autor": "CONAPO",
+    "descripcion": "Localización de puntos asociados a indicadores de rezago social y marginación.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Puntual",
+    "keywords": [
+      "rezago",
+      "marginación",
+      "social",
+      "indicadores",
+      "vulnerabilidad"
+    ]
+  },
+  {
+    "thumbnail": "imagenes/denue.png",
+    "titulo": "DENUE",
+    "autor": "INEGI",
+    "descripcion": "Directorio Estadístico Nacional de Unidades Económicas georreferenciadas.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Puntual",
+    "keywords": [
+      "negocios",
+      "economía",
+      "comercio",
+      "empresas",
+      "denue"
+    ]
+  },
+  {
+    "thumbnail": "imagenes/calles.png",
+    "titulo": "Red Vial Urbana",
+    "autor": "SCT",
+    "descripcion": "Infraestructura vial del municipio utilizada para análisis de accesibilidad, movilidad y conectividad territorial.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Línea",
+    "keywords": [
+      "calles",
+      "movilidad",
+      "transporte",
+      "red vial",
+      "infraestructura"
+    ]
+  },
+  {
+    "thumbnail": "imagenes/libres.png",
+    "titulo": "Libres, Puebla",
+    "autor": "INEGI",
+    "descripcion": "Polígono que representa el área del municipio de Libres, Puebla, utilizado para análisis territoriales y planificación urbana.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Poligonal",
+    "keywords": [
+      "suelo",
+      "espacios",
+      "planeación",
+      "territorio",
+      "áreas libres"
+    ]
+  },
+  {
+    "thumbnail": "imagenes/vulnerabilidad.png",
+    "titulo": "Vulnerabilidad Acuífera",
+    "autor": "INEGI",
+    "descripcion": "Polígonos clasificados según niveles de vulnerabilidad acuífera.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Poligonal",
+    "keywords": [
+      "vulnerabilidad",
+      "riesgo",
+      "social",
+      "territorio",
+      "análisis"
+    ]
+  },
+  {
+    "thumbnail": "imagenes/dem.png",
+    "titulo": "Continuo de Elevaciones Mexicano (CEM)",
+    "autor": "INEGI",
+    "descripcion": "Modelo raster que representa la elevación del terreno para análisis topográficos e hidrológicos.",
+    "fecha_publicacion": "2026-06-14",
+    "tipo_dato": "Raster",
+    "keywords": [
+      "dem",
+      "elevación",
+      "topografía",
+      "altitud",
+      "terreno"
+    ]
+  }
+]
